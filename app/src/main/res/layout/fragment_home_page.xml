@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.view.ViewPager xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/pager"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <android.support.v4.view.PagerTabStrip
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/home_pager_item_height"
+        android:textColor="@color/home_pager_title"
+        android:textSize="@dimen/home_pager_title_height"
+        android:fontFamily="sans-serif-medium"
+        android:paddingLeft="@dimen/home_pager_title_padding_left_right"
+        android:paddingStart="@dimen/home_pager_title_padding_left_right"
+        android:paddingEnd="@dimen/home_pager_title_padding_left_right"
+        android:paddingRight="@dimen/home_pager_title_padding_left_right"
+        android:paddingBottom="@dimen/home_pager_title_padding_bottom"
+        android:layout_gravity="top"/>
+
+</android.support.v4.view.ViewPager>

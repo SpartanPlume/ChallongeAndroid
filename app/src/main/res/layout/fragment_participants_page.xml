@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:id="@+id/new_participant_layout"
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/new_participant_layout"
+        android:layout_marginTop="@dimen/new_participant_layout_margin" >
+
+        <Button
+            android:id="@+id/new_participant_bt"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/new_participant_bt_height"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:text="@string/add"
+            android:textSize="@dimen/new_participant_text"
+            android:textColor="@color/new_participant_text"
+            android:background="@drawable/selector_new_participant_button" />
+
+        <EditText
+            android:id="@+id/new_participant_name"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_toLeftOf="@id/new_participant_bt"
+            android:layout_toStartOf="@id/new_participant_bt"
+            android:inputType="text|textNoSuggestions"
+            android:textSize="@dimen/new_participant_text"
+            android:textColor="@color/new_participant_text"
+            app:backgroundTint="@color/new_participant_edit_text_line" />
+
+    </RelativeLayout>
+
+    <plume.spartan.challongeandroid.components.DynamicListView
+        android:id="@+id/participants_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_above="@id/new_participant_layout"
+        android:choiceMode="singleChoice"
+        android:divider="@color/participants_list_divider"
+        android:dividerHeight="@dimen/participants_list_divider" />
+
+</RelativeLayout>

@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="@dimen/participants_list_padding_start_end"
+    android:paddingStart="@dimen/participants_list_padding_start_end"
+    android:paddingRight="@dimen/participants_list_padding_start_end"
+    android:paddingEnd="@dimen/participants_list_padding_start_end"
+    android:background="@color/participants_list_background">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:minHeight="@dimen/participants_item_height"
+        android:layout_height="wrap_content" >
+
+        <TextView
+            android:id="@+id/participant_seed"
+            android:layout_width="@dimen/participant_seed_width"
+            android:layout_height="match_parent"
+            android:layout_centerVertical="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:gravity="center_vertical|start"
+            android:textSize="@dimen/participant_seed"
+            android:textColor="@color/participant_seed" />
+
+        <plume.spartan.challongeandroid.components.TintableImageButton
+            android:id="@+id/participant_remove_button"
+            android:src="@drawable/ic_delete_black_24dp"
+            app:tint="@color/selector_participant_button"
+            android:layout_width="@dimen/participants_item_height"
+            android:layout_height="@dimen/participants_item_height"
+            android:layout_centerVertical="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:padding="@dimen/participant_remove_bt_padding"
+            android:contentDescription="@string/remove"
+            android:clickable="true"
+            android:focusable="false"
+            android:background="@color/transparent" />
+
+        <plume.spartan.challongeandroid.components.TintableImageButton
+            android:id="@+id/participant_edit_button"
+            android:src="@drawable/ic_mode_edit_black_24dp"
+            app:tint="@color/selector_participant_button"
+            android:layout_width="@dimen/participants_item_height"
+            android:layout_height="@dimen/participants_item_height"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@id/participant_remove_button"
+            android:layout_toStartOf="@id/participant_remove_button"
+            android:padding="@dimen/participant_edit_bt_padding"
+            android:contentDescription="@string/edit"
+            android:clickable="true"
+            android:focusable="false"
+            android:background="@color/transparent" />
+
+        <TextView
+            android:id="@+id/participant_name"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@id/participant_seed"
+            android:layout_toEndOf="@id/participant_seed"
+            android:layout_toStartOf="@id/participant_edit_button"
+            android:layout_toLeftOf="@id/participant_edit_button"
+            android:gravity="center_vertical"
+            android:textSize="@dimen/participant_name"
+            android:textColor="@color/participant_name" />
+
+        <Button
+            android:id="@+id/participant_save_button"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/participant_edit_bt_size"
+            android:layout_centerVertical="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_margin="@dimen/participant_edit_bt_padding"
+            android:text="@string/save"
+            android:textSize="@dimen/participant_name"
+            android:textColor="@color/new_participant_text"
+            android:background="@drawable/selector_new_participant_button" />
+
+        <EditText
+            android:id="@+id/participant_name_edit"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@id/participant_seed"
+            android:layout_toEndOf="@id/participant_seed"
+            android:layout_toStartOf="@id/participant_save_button"
+            android:layout_toLeftOf="@id/participant_save_button"
+            android:inputType="text|textNoSuggestions"
+            android:textSize="@dimen/participant_name"
+            android:textColor="@color/participant_name"
+            app:backgroundTint="@color/new_participant_edit_text_line" />
+
+    </RelativeLayout>
+
+</LinearLayout>

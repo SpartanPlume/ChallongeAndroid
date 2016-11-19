@@ -1,0 +1,50 @@
+<resources>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="nav_header_vertical_spacing">16dp</dimen>
+    <dimen name="nav_header_height">160dp</dimen>
+
+    <dimen name="activity_padding">16dp</dimen>
+
+    <dimen name="toolbar_title">22sp</dimen>
+
+    <dimen name="nav_drawer_width">240dp</dimen>
+    <dimen name="nav_drawer_item_size">48dp</dimen>
+    <dimen name="nav_drawer_margin_start">16dp</dimen>
+    <dimen name="nav_drawer_text_size">14sp</dimen>
+    <dimen name="nav_drawer_divider">1dp</dimen>
+
+    <dimen name="connection_error_text">18sp</dimen>
+    <dimen name="connection_error_bt_height">40dp</dimen>
+    <dimen name="connection_error_bt_margin">8dp</dimen>
+
+    <dimen name="home_pager_item_height">36dp</dimen>
+    <dimen name="home_pager_title_padding_left_right">12dp</dimen>
+    <dimen name="home_pager_title_padding_bottom">20dp</dimen>
+    <dimen name="home_pager_title_height">14sp</dimen>
+
+    <dimen name="tournaments_list_padding_start_end">16dp</dimen>
+    <dimen name="tournaments_list_divider">@dimen/nav_drawer_divider</dimen>
+    <dimen name="tournaments_item_height">72dp</dimen>
+    <dimen name="tournaments_item_height_half">36dp</dimen>
+    <dimen name="tournament_name">16sp</dimen>
+    <dimen name="tournament_summary">14sp</dimen>
+
+    <dimen name="participants_list_padding_start_end">@dimen/tournaments_list_padding_start_end</dimen>
+    <dimen name="participants_list_divider">@dimen/nav_drawer_divider</dimen>
+    <dimen name="participants_item_height">36dp</dimen>
+    <dimen name="participant_name">16sp</dimen>
+    <dimen name="participant_seed_width">36dp</dimen>
+    <dimen name="participant_seed">@dimen/participant_name</dimen>
+    <dimen name="participant_edit_bt_size">24dp</dimen>
+    <dimen name="participant_edit_bt_padding">4dp</dimen>
+    <dimen name="participant_remove_bt_size">@dimen/participant_edit_bt_size</dimen>
+    <dimen name="participant_remove_bt_padding">@dimen/participant_edit_bt_padding</dimen>
+    <dimen name="new_participant_layout">48dp</dimen>
+    <dimen name="new_participant_layout_margin">4dp</dimen>
+    <dimen name="new_participant_bt_height">36dp</dimen>
+    <dimen name="new_participant_text">@dimen/participant_name</dimen>
+</resources>

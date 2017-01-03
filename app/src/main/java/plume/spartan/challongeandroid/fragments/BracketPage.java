@@ -23,6 +23,7 @@ public class BracketPage extends Fragment {
     public static BracketPage newInstance() {
         return (new BracketPage());
     }
+    public static final String TAG = "BracketPage";
 
     @Nullable
     @Override

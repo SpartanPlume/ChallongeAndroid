@@ -20,22 +20,22 @@ import plume.spartan.challongeandroid.global.MyApplication;
  * Created by charpe_r on 29/10/16.
  */
 
-public class GetMethod extends AsyncTask<URL, Void, StringBuilder> {
+public class GetMethod extends AsyncTask<URL, Void, String> {
 
     public interface GetMethodResponse {
-        void processFinish(String output, boolean connectionError);
+        void processFinish(String output, int responseCode);
     }
 
-    private boolean connectionError = false;
-    private GetMethodResponse delegate = null;
     private MyApplication myApplication;
+    private GetMethodResponse delegate = null;
+    private int responseCode = 0;
 
-    public GetMethod(GetMethodResponse delegate, Context context) {
-        this.delegate = delegate;
+    public GetMethod(Context context, GetMethodResponse delegate) {
         this.myApplication = (MyApplication) context;
+        this.delegate = delegate;
     }
 
-    protected StringBuilder doInBackground(URL... urls) {
+    protected String doInBackground(URL... urls) {
         URL url = urls[0];
         StringBuilder total = null;
 
@@ -45,9 +45,10 @@ public class GetMethod extends AsyncTask<URL, Void, StringBuilder> {
                 urlConnection = (HttpsURLConnection) url.openConnection();
             } catch (UnknownHostException e) {
                 e.printStackTrace();
-                connectionError = true;
+                responseCode = 404;
             } catch (IOException e) {
                 e.printStackTrace();
+                responseCode = 401;
             }
             if (urlConnection != null) {
                 try {
@@ -60,26 +61,27 @@ public class GetMethod extends AsyncTask<URL, Void, StringBuilder> {
                     while ((line = r.readLine()) != null) {
                         total.append(line).append('\n');
                     }
+                    responseCode = urlConnection.getResponseCode();
                 } catch (UnknownHostException e) {
                     e.printStackTrace();
-                    connectionError = true;
+                    responseCode = 404;
                 } catch (IOException e) {
                     e.printStackTrace();
+                    responseCode = 401;
                 } finally {
                     urlConnection.disconnect();
                 }
             }
         }
 
-        return total;
+        if (total != null)
+            return (total.toString());
+        return (null);
     }
 
     @Override
-    protected void onPostExecute(StringBuilder stringBuilder) {
-        if (stringBuilder != null)
-            delegate.processFinish(stringBuilder.toString(), connectionError);
-        else
-            delegate.processFinish(null, connectionError);
+    protected void onPostExecute(String string) {
+        delegate.processFinish(string, responseCode);
     }
 
 }

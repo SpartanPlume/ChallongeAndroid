@@ -32,7 +32,7 @@ import plume.spartan.challongeandroid.async.GetMethod;
 import plume.spartan.challongeandroid.async.PushMethod;
 import plume.spartan.challongeandroid.components.DynamicListView;
 import plume.spartan.challongeandroid.global.MyApplication;
-import plume.spartan.challongeandroid.helpers.DialogConnectionError;
+import plume.spartan.challongeandroid.helpers.CustomDialog;
 import plume.spartan.challongeandroid.helpers.Keyboard;
 import plume.spartan.challongeandroid.store.Participant;
 import plume.spartan.challongeandroid.store.Tournament;
@@ -53,6 +53,7 @@ public class ParticipantsPage extends Fragment implements GetMethod.GetMethodRes
     public static ParticipantsPage newInstance() {
         return (new ParticipantsPage());
     }
+    public static final String TAG = "ParticipantsPage";
 
     @SuppressWarnings("unchecked")
     @Nullable
@@ -108,7 +109,7 @@ public class ParticipantsPage extends Fragment implements GetMethod.GetMethodRes
         runnable = new Runnable() {
             @Override
             public void run() {
-                if (((MyApplication) getActivity().getApplicationContext()).getCurrentFragmentTag().equals("ParticipantsPage")) {
+                if (((MyApplication) getActivity().getApplicationContext()).getCurrentFragmentTag().equals(ParticipantsPage.TAG)) {
                     ActivityManager activityManager = (ActivityManager) getActivity().getSystemService(Context.ACTIVITY_SERVICE);
                     List<ActivityManager.RunningAppProcessInfo> appProcesses = activityManager.getRunningAppProcesses();
                     for (ActivityManager.RunningAppProcessInfo appProcess : appProcesses) {
@@ -118,14 +119,14 @@ public class ParticipantsPage extends Fragment implements GetMethod.GetMethodRes
                                 if (myKM.inKeyguardRestrictedInputMode()) {
                                     //it is locked
                                 } else {
-                                    GetMethod getMethod = new GetMethod(ParticipantsPage.this, getActivity().getApplicationContext());
+                                    GetMethod getMethod = new GetMethod(getActivity().getApplicationContext(), ParticipantsPage.this);
                                     getMethod.execute(url);
                                     //System.out.println("yee");
                                 }
                             }
                         }
                     }
-                    if (((MyApplication) getActivity().getApplicationContext()).getCurrentFragmentTag().equals("ParticipantsPage"))
+                    if (((MyApplication) getActivity().getApplicationContext()).getCurrentFragmentTag().equals(ParticipantsPage.TAG))
                         handler.postDelayed(this, UPDATE_TIMER);
                 }
             }
@@ -139,7 +140,7 @@ public class ParticipantsPage extends Fragment implements GetMethod.GetMethodRes
             btNewParticipant.setVisibility(View.GONE);
         }
 
-        GetMethod getMethod = new GetMethod(this, getActivity().getApplicationContext());
+        GetMethod getMethod = new GetMethod(getActivity().getApplicationContext(), this);
         getMethod.execute(url);
 
         return view;
@@ -147,11 +148,10 @@ public class ParticipantsPage extends Fragment implements GetMethod.GetMethodRes
 
     @SuppressWarnings("unchecked")
     @Override
-    public void processFinish(String output, boolean connectionError) {
-        if (connectionError) {
-            DialogConnectionError.show(getContext(), getActivity(), ((MyApplication) getActivity().getApplicationContext()).getCurrentFragmentTag());
+    public void processFinish(String output, int responseCode) {
+        if (responseCode >= 400) {
+            CustomDialog.showDialogConnectionError(getContext(), getActivity(), ((MyApplication) getActivity().getApplicationContext()).getCurrentFragmentTag());
         } else if (output != null) {
-            //System.out.println(output);
             final List<Participant> list = new ArrayList<>();
             try {
                 JSONArray jsonArray = new JSONArray(output);
@@ -164,7 +164,7 @@ public class ParticipantsPage extends Fragment implements GetMethod.GetMethodRes
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
-                DialogConnectionError.show(getContext(), getActivity(), ((MyApplication) getActivity().getApplicationContext()).getCurrentFragmentTag());
+                CustomDialog.showDialogConnectionError(getContext(), getActivity(), ((MyApplication) getActivity().getApplicationContext()).getCurrentFragmentTag());
             }
 
             List<Participant> previous_list = (List<Participant>)(List<?>)participantsListView.getCheeseList();

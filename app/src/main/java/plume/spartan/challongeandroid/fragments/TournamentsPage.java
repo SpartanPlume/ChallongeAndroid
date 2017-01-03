@@ -22,7 +22,7 @@ import plume.spartan.challongeandroid.activities.MainActivity;
 import plume.spartan.challongeandroid.adapters.TournamentsListAdapter;
 import plume.spartan.challongeandroid.async.GetMethod;
 import plume.spartan.challongeandroid.global.MyApplication;
-import plume.spartan.challongeandroid.helpers.DialogConnectionError;
+import plume.spartan.challongeandroid.helpers.CustomDialog;
 import plume.spartan.challongeandroid.helpers.ShowFragment;
 import plume.spartan.challongeandroid.store.Tournament;
 
@@ -47,6 +47,8 @@ public class TournamentsPage extends Fragment implements GetMethod.GetMethodResp
         return (tournamentsPage);
     }
 
+    public static final String TAG = "TournamentsPage";
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState)
@@ -55,15 +57,6 @@ public class TournamentsPage extends Fragment implements GetMethod.GetMethodResp
 
         getActivity().setTitle(getString(R.string.home_page_title));
         ((MainActivity) getActivity()).setOpenableDrawer(false);
-
-        /*Button button = (Button) findViewById(R.id.buttonn);
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(getResources().getString(R.string.challonge_url_api_key)));
-                startActivity(intent);
-            }
-        });*/
 
         List<String> urls = new ArrayList<>();
 
@@ -96,7 +89,7 @@ public class TournamentsPage extends Fragment implements GetMethod.GetMethodResp
                 e.printStackTrace();
             }
 
-            GetMethod getMethod = new GetMethod(this, getActivity().getApplicationContext());
+            GetMethod getMethod = new GetMethod(getActivity().getApplicationContext(), this);
             getMethod.execute(url);
         }
 
@@ -104,9 +97,9 @@ public class TournamentsPage extends Fragment implements GetMethod.GetMethodResp
     }
 
     @Override
-    public void processFinish(String output, boolean connectionError) {
-        if (connectionError) {
-            DialogConnectionError.show(getContext(), getActivity(), ((MyApplication) getActivity().getApplicationContext()).getCurrentFragmentTag());
+    public void processFinish(String output, int responseCode) {
+        if (responseCode >= 400) {
+            CustomDialog.showDialogConnectionError(getContext(), getActivity(), ((MyApplication) getActivity().getApplicationContext()).getCurrentFragmentTag());
         } else if (output != null) {
             System.out.println(output);
             if (tournamentsList == null)
@@ -122,7 +115,7 @@ public class TournamentsPage extends Fragment implements GetMethod.GetMethodResp
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
-                DialogConnectionError.show(getContext(), getActivity(), ((MyApplication) getActivity().getApplicationContext()).getCurrentFragmentTag());
+                CustomDialog.showDialogConnectionError(getContext(), getActivity(), ((MyApplication) getActivity().getApplicationContext()).getCurrentFragmentTag());
             }
 
             TournamentsListAdapter adapter = new TournamentsListAdapter(getActivity(), tournamentsList);
@@ -133,7 +126,7 @@ public class TournamentsPage extends Fragment implements GetMethod.GetMethodResp
                     Tournament tournament = tournamentsList.get(i);
                     if (tournament.getUrl() != null) {
                         ((MyApplication) getActivity().getApplicationContext()).setTournament(tournament);
-                        ShowFragment.changeFragment(getActivity(), BracketPage.newInstance(), "BracketPage");
+                        ShowFragment.changeFragment(getActivity(), BracketPage.newInstance(), BracketPage.TAG);
                     }
                 }
             });

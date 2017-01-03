@@ -32,7 +32,6 @@
             android:layout_below="@id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:padding="@dimen/activity_padding"
             android:background="@color/app_background" />
 
     </RelativeLayout>

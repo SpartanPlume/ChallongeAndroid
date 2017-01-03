@@ -21,11 +21,13 @@ import plume.spartan.challongeandroid.R;
 import plume.spartan.challongeandroid.adapters.NavDrawerAdapter;
 import plume.spartan.challongeandroid.fragments.BracketPage;
 import plume.spartan.challongeandroid.fragments.HomePage;
+import plume.spartan.challongeandroid.fragments.LogInPage;
 import plume.spartan.challongeandroid.fragments.ParticipantsPage;
 import plume.spartan.challongeandroid.global.MyApplication;
 import plume.spartan.challongeandroid.helpers.Keyboard;
 import plume.spartan.challongeandroid.helpers.ReloadCurrentFragment;
 import plume.spartan.challongeandroid.helpers.ShowFragment;
+import plume.spartan.challongeandroid.store.Participant;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -59,20 +61,23 @@ public class MainActivity extends AppCompatActivity {
             String fragment = savedInstanceState.getString("fragment");
             if (fragment != null) {
                 switch (fragment) {
-                    case "BracketPage":
-                        ShowFragment.changeFragment(MainActivity.this, BracketPage.newInstance(), "BracketPage");
+                    case HomePage.TAG:
+                        ShowFragment.changeFragment(MainActivity.this, HomePage.newInstance(savedInstanceState.getInt("tab")), HomePage.TAG);
                         break;
-                    case "ParticipantsPage":
-                        ShowFragment.changeFragment(MainActivity.this, ParticipantsPage.newInstance(), "ParticipantsPage");
+                    case BracketPage.TAG:
+                        ShowFragment.changeFragment(MainActivity.this, BracketPage.newInstance(), BracketPage.TAG);
+                        break;
+                    case ParticipantsPage.TAG:
+                        ShowFragment.changeFragment(MainActivity.this, ParticipantsPage.newInstance(), ParticipantsPage.TAG);
                         break;
                     default:
-                        ShowFragment.changeFragment(MainActivity.this, HomePage.newInstance(savedInstanceState.getInt("tab")), "HomePage");
+                        ShowFragment.changeFragment(MainActivity.this, LogInPage.newInstance(), LogInPage.TAG);
                 }
             } else {
-                ShowFragment.changeFragment(MainActivity.this, HomePage.newInstance(), "HomePage");
+                ShowFragment.changeFragment(MainActivity.this, LogInPage.newInstance(), LogInPage.TAG);
             }
         } else {
-            ShowFragment.changeFragment(MainActivity.this, HomePage.newInstance(), "HomePage");
+            ShowFragment.changeFragment(MainActivity.this, LogInPage.newInstance(), LogInPage.TAG);
         }
     }
 
@@ -152,20 +157,20 @@ public class MainActivity extends AppCompatActivity {
             String currentFragmentTag = ((MyApplication) getApplicationContext()).getCurrentFragmentTag();
             switch (i) {
                 case 0:
-                    ShowFragment.changeFragment(MainActivity.this, HomePage.newInstance(), "HomePage");
+                    ShowFragment.changeFragment(MainActivity.this, HomePage.newInstance(), HomePage.TAG);
                     break;
                 case 1:
-                    if (currentFragmentTag.equals("BracketPage")) {
+                    if (currentFragmentTag.equals(BracketPage.TAG)) {
                         ReloadCurrentFragment.execute(getSupportFragmentManager(), currentFragmentTag);
                     } else {
-                        ShowFragment.changeFragment(MainActivity.this, BracketPage.newInstance(), "BracketPage");
+                        ShowFragment.changeFragment(MainActivity.this, BracketPage.newInstance(), BracketPage.TAG);
                     }
                     break;
                 case 2:
-                    if (currentFragmentTag.equals("ParticipantsPage")) {
+                    if (currentFragmentTag.equals(ParticipantsPage.TAG)) {
                         ReloadCurrentFragment.execute(getSupportFragmentManager(), currentFragmentTag);
                     } else {
-                        ShowFragment.changeFragment(MainActivity.this, ParticipantsPage.newInstance(), "ParticipantsPage");
+                        ShowFragment.changeFragment(MainActivity.this, ParticipantsPage.newInstance(), ParticipantsPage.TAG);
                     }
                     break;
                 case 3:
@@ -193,10 +198,9 @@ public class MainActivity extends AppCompatActivity {
         String currentFragment = ((MyApplication) getApplicationContext()).getCurrentFragmentTag();
         outState.putString("fragment", currentFragment);
         System.out.println(currentFragment);
-        if (currentFragment.equals("HomePage")) {
-            Fragment fragment = getSupportFragmentManager().findFragmentByTag("HomePage");
+        if (currentFragment.equals(HomePage.TAG)) {
+            Fragment fragment = getSupportFragmentManager().findFragmentByTag(HomePage.TAG);
             if (fragment != null) {
-                System.out.println("kek");
                 Bundle fragmentBundle = fragment.getArguments();
                 if (fragmentBundle != null) {
                     outState.putInt("tab", fragmentBundle.getInt("tab"));

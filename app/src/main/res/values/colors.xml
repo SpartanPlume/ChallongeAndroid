@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#FF4081</color>
+    <color name="colorPrimary">#cb6228</color>
+    <color name="colorPrimaryDark">#a04d20</color>
+    <color name="colorAccent">#cb6228</color>
+
+    <color name="colorEditLineNoFocus">#666666</color>
 
     <color name="transparent">#00000000</color>
 
@@ -13,8 +15,12 @@
     <color name="toolbar_background">#292e3a</color>
     <color name="toolbar_title">#ffffff</color>
 
-    <color name="primary_button_bg_normal">#cb6228</color>
-    <color name="primary_button_bg_pressed">#a04d20</color>
+    <color name="primary_button_text">#ffffff</color>
+    <color name="primary_button_bg_normal">@color/colorPrimary</color>
+    <color name="primary_button_bg_pressed">@color/colorPrimaryDark</color>
+    <color name="secondary_button_text">#ffffff</color>
+    <color name="secondary_button_bg_normal">#555555</color>
+    <color name="secondary_button_bg_pressed">#444444</color>
 
     <color name="nav_drawer_background">@color/toolbar_background</color>
     <color name="nav_drawer_divider">#343946</color>
@@ -23,8 +29,11 @@
     <color name="nav_drawer_item_bg_pressed">@color/nav_drawer_divider</color>
 
     <color name="connection_error_text">#eeeeee</color>
-    <color name="connection_error_bt_bg_normal">@color/primary_button_bg_normal</color>
-    <color name="connection_error_bt_bg_pressed">@color/primary_button_bg_pressed</color>
+    <color name="connection_error_bt_bg_normal">@color/colorPrimary</color>
+    <color name="connection_error_bt_bg_pressed">@color/colorPrimaryDark</color>
+
+    <color name="log_in_placeholder">@color/colorEditLineNoFocus</color>
+    <color name="log_in_form_text">#ffffff</color>
 
     <color name="home_pager_title">#ffffff</color>
 
@@ -39,8 +48,8 @@
     <color name="participant_seed">@color/participant_name</color>
     <color name="participant_bt_normal">#676d7d</color>
     <color name="participant_bt_pressed">#dddddd</color>
-    <color name="new_participant_edit_text_line">@color/primary_button_bg_normal</color>
-    <color name="new_participant_bt_bg_normal">@color/primary_button_bg_normal</color>
-    <color name="new_participant_bt_bg_pressed">@color/primary_button_bg_pressed</color>
+    <color name="new_participant_edit_text_line">@color/colorPrimary</color>
+    <color name="new_participant_bt_bg_normal">@color/colorPrimary</color>
+    <color name="new_participant_bt_bg_pressed">@color/colorPrimaryDark</color>
     <color name="new_participant_text">#ffffff</color>
 </resources>

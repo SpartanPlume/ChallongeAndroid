@@ -21,8 +21,15 @@
     <dimen name="connection_error_bt_height">40dp</dimen>
     <dimen name="connection_error_bt_margin">8dp</dimen>
 
+    <dimen name="log_in_form_text">18sp</dimen>
+    <dimen name="log_in_api_key_button_text">16sp</dimen>
+    <dimen name="log_in_api_key_button_height">24dp</dimen>
+    <dimen name="log_in_margin_between_forms">12dp</dimen>
+    <dimen name="log_in_margin_between_forms_and_buttons">36dp</dimen>
+    <dimen name="log_in_margin_between_buttons">12dp</dimen>
+
     <dimen name="home_pager_item_height">36dp</dimen>
-    <dimen name="home_pager_title_padding_left_right">12dp</dimen>
+    <dimen name="home_pager_title_padding_left_right">16dp</dimen>
     <dimen name="home_pager_title_padding_bottom">20dp</dimen>
     <dimen name="home_pager_title_height">14sp</dimen>
 

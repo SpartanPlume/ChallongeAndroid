@@ -7,26 +7,10 @@ import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ListView;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
 
 import plume.spartan.challongeandroid.R;
 import plume.spartan.challongeandroid.activities.MainActivity;
 import plume.spartan.challongeandroid.adapters.HomePageAdapter;
-import plume.spartan.challongeandroid.adapters.TournamentsListAdapter;
-import plume.spartan.challongeandroid.async.GetMethod;
-import plume.spartan.challongeandroid.global.MyApplication;
-import plume.spartan.challongeandroid.helpers.DialogConnectionError;
-import plume.spartan.challongeandroid.helpers.ShowFragment;
-import plume.spartan.challongeandroid.store.Tournament;
 
 /**
  * Created by charpe_r on 30/10/16.
@@ -48,6 +32,8 @@ public class HomePage extends Fragment {
         return (homePage);
     }
 
+    public static final String TAG = "HomePage";
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState)
@@ -56,15 +42,6 @@ public class HomePage extends Fragment {
 
         getActivity().setTitle(getString(R.string.home_page_title));
         ((MainActivity) getActivity()).setOpenableDrawer(false);
-
-        /*Button button = (Button) findViewById(R.id.buttonn);
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(getResources().getString(R.string.challonge_url_api_key)));
-                startActivity(intent);
-            }
-        });*/
 
         viewPager = (ViewPager) view.findViewById(R.id.pager);
         viewPager.setAdapter(new HomePageAdapter(getChildFragmentManager()));

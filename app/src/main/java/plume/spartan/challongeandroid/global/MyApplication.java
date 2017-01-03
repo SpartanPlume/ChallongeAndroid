@@ -10,13 +10,18 @@ import plume.spartan.challongeandroid.store.Tournament;
 
 public class MyApplication extends Application {
 
-    private String username = "SpartanPlume";
-    private String api_key = "sualJrsnyVuxCRDF4PrrLKlyWJbSH4aHbeMGQFki";
+    private String username = "";
+    private String api_key = "";
     private String currentFragmentTag = null;
     private Tournament tournament = null;
 
     public MyApplication() {
 
+    }
+
+    public void setUser(String username, String apiKey) {
+        this.username = username;
+        this.api_key = apiKey;
     }
 
     public void setUsername(String username) {

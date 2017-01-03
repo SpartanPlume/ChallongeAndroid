@@ -21,38 +21,38 @@ import plume.spartan.challongeandroid.global.MyApplication;
  * Created by charpe_r on 15/11/16.
  */
 
-public class PushMethod extends AsyncTask<URL, Void, StringBuilder> {
+public class PushMethod extends AsyncTask<URL, Void, String> {
 
     public interface PushMethodResponse {
-        void processFinish(String output, boolean connectionError);
+        void processFinish(String output, int responseCode);
     }
 
-    public static String POST = "POST";
-    public static String PUT = "PUT";
-    public static String DELETE = "DELETE";
+    public static final String POST = "POST";
+    public static final String PUT = "PUT";
+    public static final String DELETE = "DELETE";
 
-    private PushMethodResponse delegate;
     private MyApplication myApplication;
     private String requestMethod;
     private Map<String, String> parameters;
-    private boolean connectionError;
+    private PushMethodResponse delegate;
+    private int responseCode = 0;
 
     public PushMethod(Context context, String requestMethod) {
-        this(null, context, requestMethod, null);
+        this(context, requestMethod, null, null);
     }
 
     public PushMethod(Context context, String requestMethod, Map<String, String> parameters) {
-        this(null, context, requestMethod, parameters);
+        this(context, requestMethod, parameters, null);
     }
 
-    public PushMethod(PushMethodResponse delegate, Context context, String requestMethod, Map<String, String> parameters) {
-        this.delegate = delegate;
+    public PushMethod(Context context, String requestMethod, Map<String, String> parameters, PushMethodResponse delegate) {
         this.myApplication = (MyApplication) context;
         this.requestMethod = requestMethod;
         this.parameters = parameters;
+        this.delegate = delegate;
     }
 
-    protected StringBuilder doInBackground(URL... urls) {
+    protected String doInBackground(URL... urls) {
         URL url = urls[0];
         StringBuilder total = null;
 
@@ -62,9 +62,10 @@ public class PushMethod extends AsyncTask<URL, Void, StringBuilder> {
                 urlConnection = (HttpsURLConnection) url.openConnection();
             } catch (UnknownHostException e) {
                 e.printStackTrace();
-                connectionError = true;
+                responseCode = 404;
             } catch (IOException e) {
                 e.printStackTrace();
+                responseCode = 401;
             }
             if (urlConnection != null) {
                 try {
@@ -82,8 +83,8 @@ public class PushMethod extends AsyncTask<URL, Void, StringBuilder> {
                     wr.write(toWrite);
                     wr.flush();
 
-                    int resp = urlConnection.getResponseCode();
-                    if (resp != 422 && resp != 401) {
+                    responseCode = urlConnection.getResponseCode();
+                    if (responseCode != 422 && responseCode != 401) {
                         InputStream in = new BufferedInputStream(urlConnection.getInputStream());
                         BufferedReader r = new BufferedReader(new InputStreamReader(in));
                         total = new StringBuilder();
@@ -102,26 +103,27 @@ public class PushMethod extends AsyncTask<URL, Void, StringBuilder> {
                     }
                 } catch (UnknownHostException e) {
                     e.printStackTrace();
-                    connectionError = true;
+                    responseCode = 404;
                 } catch (IOException e) {
                     e.printStackTrace();
+                    responseCode = 401;
                 } finally {
                     urlConnection.disconnect();
                 }
             }
         }
 
-        return total;
+        if (total != null)
+            return (total.toString());
+        return (null);
     }
 
     @Override
-    protected void onPostExecute(StringBuilder stringBuilder) {
-        if (stringBuilder != null && delegate != null) {
-            delegate.processFinish(stringBuilder.toString(), connectionError);
-        } else if (delegate != null) {
-            delegate.processFinish(null, connectionError);
-        } else if (stringBuilder != null) {
-            System.out.println(stringBuilder.toString());
+    protected void onPostExecute(String string) {
+        if (delegate != null) {
+            delegate.processFinish(string, responseCode);
+        } else if (string != null) {
+            System.out.println(string);
         }
     }
 }

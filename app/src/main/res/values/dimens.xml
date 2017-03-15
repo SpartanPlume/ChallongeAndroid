@@ -40,7 +40,8 @@
     <dimen name="tournament_name">16sp</dimen>
     <dimen name="tournament_summary">14sp</dimen>
 
-    <dimen name="participants_list_padding_start_end">@dimen/tournaments_list_padding_start_end</dimen>
+    <dimen name="participants_list_padding_start">@dimen/tournaments_list_padding_start_end</dimen>
+    <dimen name="participants_list_padding_end">0dp</dimen>
     <dimen name="participants_list_divider">@dimen/nav_drawer_divider</dimen>
     <dimen name="participants_item_height">36dp</dimen>
     <dimen name="participant_name">16sp</dimen>

@@ -343,13 +343,11 @@ public class DynamicListView extends ListView {
 
             final long switchItemID = isBelow ? mBelowItemId : mAboveItemId;
             View switchView = isBelow ? belowView : aboveView;
-            final int originalItem = getPositionForView(mobileView);
-
-            if (switchView == null) {
+            if (switchView == null || mobileView == null) {
                 updateNeighborViewsForID(mMobileItemId);
                 return;
-
             }
+            final int originalItem = getPositionForView(mobileView);
 
             swapElements(mCheeseList, originalItem, getPositionForView(switchView));
 

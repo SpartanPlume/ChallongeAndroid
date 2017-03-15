@@ -4,10 +4,10 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingLeft="@dimen/participants_list_padding_start_end"
-    android:paddingStart="@dimen/participants_list_padding_start_end"
-    android:paddingRight="@dimen/participants_list_padding_start_end"
-    android:paddingEnd="@dimen/participants_list_padding_start_end"
+    android:paddingLeft="@dimen/participants_list_padding_start"
+    android:paddingStart="@dimen/participants_list_padding_start"
+    android:paddingRight="@dimen/participants_list_padding_end"
+    android:paddingEnd="@dimen/participants_list_padding_end"
     android:background="@color/participants_list_background">
 
     <RelativeLayout
